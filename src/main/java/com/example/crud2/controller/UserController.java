@@ -12,11 +12,8 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class UserController {
 
-    //test
-
     @Autowired
     private UserService userService;
-
 
     @GetMapping("/signup")
     public String showSignUpFrom(User user) {
