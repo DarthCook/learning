@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class UserController {
-    
+
     @Autowired
     private UserService userService;
 
@@ -26,13 +26,13 @@ public class UserController {
             return "adduser";
         }
 
-        userService.addUser(userDTO.getName(), userDTO.getEmail());
+        userService.addUser(userDTO.getName(), userDTO.getEmail(), userDTO.getBills());
         return "redirect:/index";
     }
 
     @GetMapping("/index")
     public String showUserList(Model model) {
-        model.addAttribute("users", userService.findAll());
+        model.addAttribute("users", userService.findAllUsers());
         return "index";
     }
 

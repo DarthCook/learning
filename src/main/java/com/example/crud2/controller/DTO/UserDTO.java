@@ -1,8 +1,11 @@
 package com.example.crud2.controller.DTO;
 
+import com.example.crud2.entity.Bill;
 import com.example.crud2.entity.User;
 import com.example.crud2.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserDTO {
 
@@ -14,13 +17,40 @@ public class UserDTO {
 
     private String email;
 
-    public UserDTO(Long id, String name, String email) {
+    private List<BillDTO> bills;
+
+
+    public UserDTO(Long id, String name, String email, List<BillDTO> bills) {
         this.id = id;
         this.name = name;
         this.email = email;
+        this.bills = bills;
     }
 
+    public UserDTO(User user) {
+        this.id = user.getId();
+        this.name = user.getName();
+        this.email = user.getEmail();
+        this.bills = user.getBills().stream()
+                .map(BillDTO::new).collect(Collectors.toList());
+    }
     public UserDTO() {
+    }
+
+    public UserRepository getUserRepository() {
+        return userRepository;
+    }
+
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public List<BillDTO> getBills() {
+        return bills;
+    }
+
+    public void setBills(List<BillDTO> bills) {
+        this.bills = bills;
     }
 
     public String getName() {

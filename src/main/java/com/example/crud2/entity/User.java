@@ -1,8 +1,11 @@
 package com.example.crud2.entity;
 
 
+import com.example.crud2.controller.DTO.UserDTO;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -21,9 +24,14 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    public User(String name, String email) {
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Column(name = "bills")
+    private List<Bill> bills;
+
+    public User(String name, String email, List<Bill> bills) {
         this.name = name;
         this.email = email;
+        this.bills = bills;
     }
 
     public User() {
@@ -51,6 +59,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Bill> getBills() {
+        return bills;
+    }
+
+    public void setBills(List<Bill> bills) {
+        this.bills = bills;
     }
 
     @Override
